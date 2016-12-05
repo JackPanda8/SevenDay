@@ -83,45 +83,6 @@
             </objects>
             <point key="canvasLocation" x="2.5" y="40.019999999999996"/>
         </scene>
-        <!--Test View Controller-->
-        <scene sceneID="P1t-Wi-Q3s">
-            <objects>
-                <viewController storyboardIdentifier="TestViewController" id="Drb-ZG-lWD" customClass="TestViewController" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="ajG-hF-6ye"/>
-                        <viewControllerLayoutGuide type="bottom" id="08I-Vn-R1w"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="aHg-Pn-22G">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="U9i-U0-fVG">
-                                <rect key="frame" x="16" y="66" width="343" height="30"/>
-                                <state key="normal" title="情侣聊天"/>
-                                <connections>
-                                    <action selector="chatButton:" destination="Drb-ZG-lWD" eventType="touchUpInside" id="oab-Mj-T5e"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZXZ-F7-cmQ">
-                                <rect key="frame" x="16" y="104" width="343" height="30"/>
-                                <state key="normal" title="系统消息"/>
-                            </button>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstItem="ZXZ-F7-cmQ" firstAttribute="trailing" secondItem="aHg-Pn-22G" secondAttribute="trailingMargin" id="DPz-2e-jxe"/>
-                            <constraint firstItem="ZXZ-F7-cmQ" firstAttribute="leading" secondItem="aHg-Pn-22G" secondAttribute="leadingMargin" id="StS-fP-j7s"/>
-                            <constraint firstItem="U9i-U0-fVG" firstAttribute="trailing" secondItem="aHg-Pn-22G" secondAttribute="trailingMargin" id="Sty-po-PZC"/>
-                            <constraint firstItem="U9i-U0-fVG" firstAttribute="top" secondItem="ajG-hF-6ye" secondAttribute="bottom" constant="46" id="fZc-ZH-cyp"/>
-                            <constraint firstItem="ZXZ-F7-cmQ" firstAttribute="top" secondItem="U9i-U0-fVG" secondAttribute="bottom" constant="8" id="msS-QK-Fu1"/>
-                            <constraint firstItem="U9i-U0-fVG" firstAttribute="leading" secondItem="aHg-Pn-22G" secondAttribute="leadingMargin" id="vnr-JR-lKK"/>
-                        </constraints>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="8F9-S1-dIS" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2386" y="1201"/>
-        </scene>
         <!--账号登录-->
         <scene sceneID="ma4-nh-j81">
             <objects>
@@ -151,13 +112,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vkG-ja-kbS">
-                                <rect key="frame" x="156" y="318" width="62" height="30"/>
-                                <state key="normal" title="退出登录"/>
-                                <connections>
-                                    <action selector="logout:" destination="X7o-jX-iqi" eventType="touchUpInside" id="e0b-WE-h5s"/>
-                                </connections>
-                            </button>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder=" 输入手机号" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="boJ-Hi-PRe">
                                 <rect key="frame" x="16" y="84" width="343" height="40"/>
                                 <color key="backgroundColor" red="0.99999600648880005" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -181,7 +135,7 @@
                                 </constraints>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" returnKeyType="go" enablesReturnKeyAutomatically="YES" secureTextEntry="YES"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
                                         <integer key="value" value="3"/>
@@ -226,8 +180,6 @@
                             <constraint firstItem="boJ-Hi-PRe" firstAttribute="leading" secondItem="CQ4-M9-3eI" secondAttribute="leadingMargin" id="KBF-4g-7Tj"/>
                             <constraint firstItem="boJ-Hi-PRe" firstAttribute="trailing" secondItem="CQ4-M9-3eI" secondAttribute="trailingMargin" id="KoB-Qi-nDi"/>
                             <constraint firstItem="boJ-Hi-PRe" firstAttribute="top" secondItem="NhW-Rz-Nr5" secondAttribute="bottom" constant="20" id="L7D-my-2dW"/>
-                            <constraint firstItem="vkG-ja-kbS" firstAttribute="centerY" secondItem="CQ4-M9-3eI" secondAttribute="centerY" id="LU1-dk-DM7"/>
-                            <constraint firstItem="vkG-ja-kbS" firstAttribute="centerX" secondItem="CQ4-M9-3eI" secondAttribute="centerX" id="MLE-RW-SWr"/>
                             <constraint firstItem="mPV-Rh-a7b" firstAttribute="top" secondItem="boJ-Hi-PRe" secondAttribute="bottom" constant="20" id="bAI-DD-0J1"/>
                             <constraint firstItem="mPV-Rh-a7b" firstAttribute="trailing" secondItem="CQ4-M9-3eI" secondAttribute="trailingMargin" id="jRa-Rk-12R"/>
                             <constraint firstItem="ebJ-JY-pTf" firstAttribute="leading" secondItem="sZ3-iV-8se" secondAttribute="trailing" constant="15" id="uTy-UP-v6b"/>
@@ -256,13 +208,38 @@
                     <view key="view" contentMode="scaleToFill" id="WiA-lU-mLU">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OMM-ED-lCQ">
+                                <rect key="frame" x="6" y="558" width="363" height="40"/>
+                                <color key="backgroundColor" red="1" green="0.5" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="ZNN-7Q-q8z"/>
+                                </constraints>
+                                <state key="normal" title="退出登录">
+                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="6"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="logout:" destination="eeo-tJ-BDO" eventType="touchUpInside" id="iP7-75-I6e"/>
+                                </connections>
+                            </button>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="cNs-0j-RIA" firstAttribute="top" secondItem="OMM-ED-lCQ" secondAttribute="bottom" constant="20" id="8mD-ty-ViT"/>
+                            <constraint firstItem="OMM-ED-lCQ" firstAttribute="trailing" secondItem="WiA-lU-mLU" secondAttribute="trailingMargin" constant="10" id="PzG-Sy-g9s"/>
+                            <constraint firstItem="OMM-ED-lCQ" firstAttribute="leading" secondItem="WiA-lU-mLU" secondAttribute="leadingMargin" constant="-10" id="gao-5Q-7kp"/>
+                        </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="我" id="CeI-Ly-WDB"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mLu-mP-Pl3" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="589" y="3744"/>
+            <point key="canvasLocation" x="621.5" y="3765.5"/>
         </scene>
         <!--社区-->
         <scene sceneID="wvR-Ub-bGN">
@@ -294,9 +271,9 @@
                     </tabBar>
                     <connections>
                         <segue destination="hAt-CB-kKe" kind="relationship" relationship="viewControllers" id="PKt-6H-mTp"/>
-                        <segue destination="eeo-tJ-BDO" kind="relationship" relationship="viewControllers" id="dXz-7C-Ctr"/>
                         <segue destination="HNt-dE-sf6" kind="relationship" relationship="viewControllers" id="vwY-Gt-l5t"/>
                         <segue destination="dU9-A7-Fcy" kind="relationship" relationship="viewControllers" id="f4k-Jx-Z77"/>
+                        <segue destination="eeo-tJ-BDO" kind="relationship" relationship="viewControllers" id="cfo-Bn-7s1"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="YeI-Ee-tT8" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -320,7 +297,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cAj-6o-jGp" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="589" y="2813"/>
+            <point key="canvasLocation" x="622" y="2813"/>
         </scene>
         <!--消息-->
         <scene sceneID="kBw-vB-1Bk">

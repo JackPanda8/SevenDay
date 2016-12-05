@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "MyMessageCell.h"
 #import "AppDelegate.h"
+#import "IMAPlatform.h"
 
 @interface MyMessageTableViewController : UITableViewController
 

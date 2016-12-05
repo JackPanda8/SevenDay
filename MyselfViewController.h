@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
-@interface MyselfViewController : UIViewController
+@interface MyselfViewController : UIViewController 
+
+- (IBAction)logout:(id)sender;
 
 @end

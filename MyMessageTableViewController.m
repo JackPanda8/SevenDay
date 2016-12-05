@@ -58,20 +58,23 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     NSInteger row = [indexPath row];
     if(row == 0) {
-        /*IMAUser* lover = [[IMAUser alloc] initWith:@"fdb"];
-        lover.nickName = @"龙卷风";
-        lover.remark = @"亲爱的";
-        //lover.icon = @"";
-        [[AppDelegate sharedAppDelegate] pushToChatViewControllerWith:lover];*/
-        
-        
-        IMAUser* lover = [[IMAUser alloc] initWith:@"user1"];
-        lover.nickName = @"小绵羊";
-//        lover.remark = @"honey";
-        //lover.icon = @"";
-        [[AppDelegate sharedAppDelegate] pushToChatViewControllerWith:lover];
+        NSString* curUID = [IMAPlatform sharedInstance].host.userId;
+        if([curUID isEqualToString:@"fdb"]) {
+            IMAUser* lover = [[IMAUser alloc] initWith:@"user1"];
+            lover.nickName = @"小绵羊";
+            //        lover.remark = @"honey";
+            //lover.icon = @"";
+            [[AppDelegate sharedAppDelegate] pushToChatViewControllerWith:lover];
+        } else if([curUID isEqualToString:@"user1"]) {
+            IMAUser* lover = [[IMAUser alloc] initWith:@"fdb"];
+             lover.nickName = @"龙卷风";
+             lover.remark = @"亲爱的";
+             //lover.icon = @"";
+            [[AppDelegate sharedAppDelegate] pushToChatViewControllerWith:lover];
+        }
     } else if(row == 1) {
         //进入到系统消息界面
+        
     }
 }
 
