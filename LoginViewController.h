@@ -22,4 +22,5 @@
 - (IBAction)login:(id)sender;
 - (IBAction)forgetPassword:(id)sender;
 
+- (IBAction)hideKeyboard:(id)sender;//隐藏键盘
 @end

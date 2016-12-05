@@ -108,7 +108,7 @@
                         <viewControllerLayoutGuide type="top" id="NhW-Rz-Nr5"/>
                         <viewControllerLayoutGuide type="bottom" id="isc-L1-44W"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="CQ4-M9-3eI">
+                    <view key="view" contentMode="scaleToFill" id="CQ4-M9-3eI" customClass="UIControl">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
@@ -186,6 +186,9 @@
                             <constraint firstItem="ebJ-JY-pTf" firstAttribute="top" secondItem="mPV-Rh-a7b" secondAttribute="bottom" constant="20" id="x5H-ha-qr0"/>
                             <constraint firstItem="sZ3-iV-8se" firstAttribute="top" secondItem="mPV-Rh-a7b" secondAttribute="bottom" constant="20" id="xw9-bt-yhV"/>
                         </constraints>
+                        <connections>
+                            <action selector="hideKeyboard:" destination="X7o-jX-iqi" eventType="touchDown" id="pDb-w8-7qI"/>
+                        </connections>
                     </view>
                     <navigationItem key="navigationItem" title="账号登录" id="r1b-Yn-EeL"/>
                     <connections>

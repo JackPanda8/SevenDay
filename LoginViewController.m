@@ -68,19 +68,22 @@
     [_loginParam setAppidAt3rd:AppIdAt3rd];
     [_loginParam setUserSig:[self getUserSigFromServerByPhoneNumber:_phoneNumber.text andPassword:_password.text]];
     
-    
     //直接登录
     __weak LoginViewController *weakSelf = self;
     [[HUDHelper sharedInstance] syncLoading:@"正在登录"];
     [[IMAPlatform sharedInstance] login:_loginParam succ:^{
         [[HUDHelper sharedInstance] syncStopLoadingMessage:@"登录成功"];
-        [_loginParam saveToLocal];//!!!!!!将登录信息存在本地
+//        [_loginParam saveToLocal];//!!!!!!将登录信息存在本地
         [weakSelf enterMainUI];
     } fail:^(int code, NSString *msg) {
         [[HUDHelper sharedInstance] syncStopLoadingMessage:IMALocalizedError(code, msg) delay:2 completion:^{
+            
             NSLog(@"登录失败，错误码：%d, 错误信息：%@", code, msg);
             UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"登录失败" message:[NSString stringWithFormat:@"错误码：%d, 错误信息：%@", code, msg] delegate:self cancelButtonTitle:@"好的" otherButtonTitles:nil, nil];
             [alert show];
+            
+            [[AppDelegate sharedAppDelegate] enterLoginUI];
+            
             if(code == 6208) {//6208错误码表示当前账户已被其他设备登录，此时只需要再次尝试登录将其踢下线即可
                 NSLog(@"当前账号已在其他设备登录，将再一次尝试登录");
                 [self login:nil];
@@ -88,25 +91,18 @@
 
         }];
     }];
-    
-    
-//    [[TIMManager sharedInstance] login:_loginParam succ:^{
-//        [[HUDHelper sharedInstance] syncStopLoadingMessage:@"登录成功"];
-//
-//        [_loginParam saveToLocal];//!!!!!!将登录信息存在本地
-//
-//        [[AppDelegate sharedAppDelegate] enterMainUI];//进入到主界面
-//    } fail:^(int code, NSString *msg) {
-//        NSLog(@"登录失败，错误码：%d, 错误信息：%@", code, msg);
-//        UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"登录失败" message:[NSString stringWithFormat:@"错误码：%d, 错误信息：%@", code, msg] delegate:self cancelButtonTitle:@"好的" otherButtonTitles:nil, nil];
-//        [alert show];
-//        if(code == 6208) {//6208错误码表示当前账户已被其他设备登录，此时只需要再次尝试登录将其踢下线即可
-//            NSLog(@"当前账号已在其他设备登录，将再一次尝试登录");
-//            [self login:nil];
-//        }
-//    }];
+
+    //隐藏键盘
+    [[UIApplication sharedApplication] sendAction:@selector(resignFirstResponder) to:nil from:nil forEvent:nil];
     
 }
+
+//点击背景隐藏键盘
+- (IBAction)hideKeyboard:(id)sender {
+    [[UIApplication sharedApplication] sendAction:@selector(resignFirstResponder) to:nil from:nil forEvent:nil];
+}
+
+#pragma - 跳转到忘记密码界面
 
 - (IBAction)forgetPassword:(id)sender {
     
@@ -283,7 +279,7 @@
     __weak LoginViewController *ws = self;
     [[HUDHelper sharedInstance] syncStopLoadingMessage:err delay:2 completion:^{
         NSLog(@"刷新票据失败");
-//        [ws pullLoginUI];
+        [[AppDelegate sharedAppDelegate] enterLoginUI];
     }];
     
 }
