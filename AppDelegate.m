@@ -37,12 +37,11 @@
 - (void) enterMainUI {
     
     UIStoryboard* main = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
-    ContainerMyMessageViewController *vc = [main instantiateViewControllerWithIdentifier:@"ContainerMyMessageViewController"];
+    HomeTabBarController *vc = [main instantiateViewControllerWithIdentifier:@"HomeTabBarController"];
     self.window.rootViewController = vc;
-
-    //    self.window.rootViewController = [[MyMessageTableViewController alloc] init];
+    
+//    self.window.rootViewController = [[HomeTabBarController alloc] init];
 //    [self.window makeKeyAndVisible];
-
 }
 
 + (instancetype)sharedAppDelegate
@@ -54,7 +53,19 @@
 #pragma - 进入到聊天视图
 - (void)pushToChatViewControllerWith:(IMAUser *)user
 {
+    /*UIStoryboard* main = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
+    ContainerMyMessageViewController *vc = [main instantiateViewControllerWithIdentifier:@"ContainerMyMessageViewController"];
+    self.window.rootViewController = vc;
+
     
+    
+//    ContainerMyMessageViewController *containerVC = (ContainerMyMessageViewController *)self.window.rootViewController;
+    [vc pushToChatViewControllerWith:user];*/
+    
+    
+    HomeTabBarController *vc = (HomeTabBarController *)self.window.rootViewController;
+    [vc pushToChatViewControllerWith:user];
+
 }
 
 

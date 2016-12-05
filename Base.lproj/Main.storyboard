@@ -83,10 +83,48 @@
             </objects>
             <point key="canvasLocation" x="2.5" y="40.019999999999996"/>
         </scene>
+        <!--Test View Controller-->
+        <scene sceneID="P1t-Wi-Q3s">
+            <objects>
+                <viewController storyboardIdentifier="TestViewController" id="Drb-ZG-lWD" customClass="TestViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="ajG-hF-6ye"/>
+                        <viewControllerLayoutGuide type="bottom" id="08I-Vn-R1w"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="aHg-Pn-22G">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="U9i-U0-fVG">
+                                <rect key="frame" x="16" y="66" width="343" height="30"/>
+                                <state key="normal" title="情侣聊天"/>
+                                <connections>
+                                    <action selector="chatButton:" destination="Drb-ZG-lWD" eventType="touchUpInside" id="oab-Mj-T5e"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZXZ-F7-cmQ">
+                                <rect key="frame" x="16" y="104" width="343" height="30"/>
+                                <state key="normal" title="系统消息"/>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="ZXZ-F7-cmQ" firstAttribute="trailing" secondItem="aHg-Pn-22G" secondAttribute="trailingMargin" id="DPz-2e-jxe"/>
+                            <constraint firstItem="ZXZ-F7-cmQ" firstAttribute="leading" secondItem="aHg-Pn-22G" secondAttribute="leadingMargin" id="StS-fP-j7s"/>
+                            <constraint firstItem="U9i-U0-fVG" firstAttribute="trailing" secondItem="aHg-Pn-22G" secondAttribute="trailingMargin" id="Sty-po-PZC"/>
+                            <constraint firstItem="U9i-U0-fVG" firstAttribute="top" secondItem="ajG-hF-6ye" secondAttribute="bottom" constant="46" id="fZc-ZH-cyp"/>
+                            <constraint firstItem="ZXZ-F7-cmQ" firstAttribute="top" secondItem="U9i-U0-fVG" secondAttribute="bottom" constant="8" id="msS-QK-Fu1"/>
+                            <constraint firstItem="U9i-U0-fVG" firstAttribute="leading" secondItem="aHg-Pn-22G" secondAttribute="leadingMargin" id="vnr-JR-lKK"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="8F9-S1-dIS" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2386" y="1201"/>
+        </scene>
         <!--账号登录-->
         <scene sceneID="ma4-nh-j81">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="723-FV-l1X" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <navigationController id="wSe-J2-irG" sceneMemberID="viewController">
                     <navigationItem key="navigationItem" title="账号登录" id="bc0-bT-79v"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="Zzk-0n-Odr">
@@ -97,6 +135,7 @@
                         <segue destination="X7o-jX-iqi" kind="relationship" relationship="rootViewController" id="KZ5-39-goR"/>
                     </connections>
                 </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="723-FV-l1X" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="622" y="-469"/>
         </scene>
@@ -206,10 +245,87 @@
             </objects>
             <point key="canvasLocation" x="1221" y="-468"/>
         </scene>
-        <!--Container My Message View Controller-->
+        <!--我-->
+        <scene sceneID="VUK-cP-wmP">
+            <objects>
+                <viewController storyboardIdentifier="MyselfViewController" id="eeo-tJ-BDO" customClass="MyselfViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="AIR-2s-8LG"/>
+                        <viewControllerLayoutGuide type="bottom" id="cNs-0j-RIA"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="WiA-lU-mLU">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="我" id="CeI-Ly-WDB"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="mLu-mP-Pl3" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="589" y="3744"/>
+        </scene>
+        <!--社区-->
+        <scene sceneID="wvR-Ub-bGN">
+            <objects>
+                <viewController storyboardIdentifier="CommunityViewController" id="hAt-CB-kKe" customClass="CommunityViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="h3Y-65-tRQ"/>
+                        <viewControllerLayoutGuide type="bottom" id="SHJ-gb-oRM"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="q8v-Px-xt8">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="社区" id="wtt-Wh-S4v"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="F49-bx-whq" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="589" y="770"/>
+        </scene>
+        <!--Home Tab Bar Controller-->
+        <scene sceneID="Eu7-xD-4HP">
+            <objects>
+                <tabBarController storyboardIdentifier="HomeTabBarController" id="9fG-bt-rhi" customClass="HomeTabBarController" sceneMemberID="viewController">
+                    <tabBar key="tabBar" contentMode="scaleToFill" id="Tni-cO-f4c">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="49"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    </tabBar>
+                    <connections>
+                        <segue destination="hAt-CB-kKe" kind="relationship" relationship="viewControllers" id="PKt-6H-mTp"/>
+                        <segue destination="eeo-tJ-BDO" kind="relationship" relationship="viewControllers" id="dXz-7C-Ctr"/>
+                        <segue destination="HNt-dE-sf6" kind="relationship" relationship="viewControllers" id="vwY-Gt-l5t"/>
+                        <segue destination="dU9-A7-Fcy" kind="relationship" relationship="viewControllers" id="f4k-Jx-Z77"/>
+                    </connections>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="YeI-Ee-tT8" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3" y="2327"/>
+        </scene>
+        <!--恋爱记-->
+        <scene sceneID="SXe-Hz-2aW">
+            <objects>
+                <viewController storyboardIdentifier="LoveDiaryViewController" id="HNt-dE-sf6" customClass="LoveDiaryViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="vFG-BI-z2f"/>
+                        <viewControllerLayoutGuide type="bottom" id="Geq-T6-yeF"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="aDH-gE-lkw">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="恋爱记" id="mEI-01-Zch"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="cAj-6o-jGp" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="589" y="2813"/>
+        </scene>
+        <!--消息-->
         <scene sceneID="kBw-vB-1Bk">
             <objects>
-                <viewController storyboardIdentifier="ContainerMyMessageViewController" id="hCI-2g-P0U" customClass="ContainerMyMessageViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ContainerMyMessageViewController" title="消息" id="hCI-2g-P0U" customClass="ContainerMyMessageViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="plt-eE-U2p"/>
                         <viewControllerLayoutGuide type="bottom" id="ZBC-5t-liK"/>
@@ -228,10 +344,7 @@
                                 </items>
                             </navigationBar>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="S9V-q2-Ulf">
-                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
-                                <connections>
-                                    <segue destination="dU9-A7-Fcy" kind="embed" id="oli-ih-ASN"/>
-                                </connections>
+                                <rect key="frame" x="0.0" y="64" width="375" height="554"/>
                             </containerView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -245,17 +358,18 @@
                             <constraint firstItem="FEe-VA-JEE" firstAttribute="top" secondItem="bSB-Rx-3ll" secondAttribute="top" id="yb1-ZE-Pp6"/>
                         </constraints>
                     </view>
+                    <tabBarItem key="tabBarItem" title="消息" id="vxC-DW-RHA"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UCb-q8-kFE" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2.5" y="1325.5"/>
+            <point key="canvasLocation" x="622" y="1880"/>
         </scene>
-        <!--My Message Table View Controller-->
+        <!--Item-->
         <scene sceneID="hDZ-cI-6hq">
             <objects>
                 <tableViewController storyboardIdentifier="MyMessageTableViewController" automaticallyAdjustsScrollViewInsets="NO" id="dU9-A7-Fcy" customClass="MyMessageTableViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="Ofh-t2-LGM">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="603"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
@@ -285,10 +399,11 @@
                             <outlet property="delegate" destination="dU9-A7-Fcy" id="sFF-ej-HK0"/>
                         </connections>
                     </tableView>
+                    <tabBarItem key="tabBarItem" title="Item" id="fQo-3z-LfA"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="oTc-aM-u1w" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="515" y="1326"/>
+            <point key="canvasLocation" x="1129" y="1835"/>
         </scene>
     </scenes>
     <resources>

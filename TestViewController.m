@@ -1,18 +1,18 @@
 //
-//  ContainerMyMessageViewController.m
+//  TestViewController.m
 //  SevenDay
 //
 //  Created by macbook for test on 16/12/2.
 //  Copyright © 2016年 JackPanda8. All rights reserved.
 //
 
-#import "ContainerMyMessageViewController.h"
+#import "TestViewController.h"
 
-@interface ContainerMyMessageViewController ()
+@interface TestViewController ()
 
 @end
 
-@implementation ContainerMyMessageViewController
+@implementation TestViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -24,9 +24,11 @@
     // Dispose of any resources that can be recreated.
 }
 
+
 //进入到C2C聊天视图
 - (void)pushToChatViewControllerWith:(IMAUser *)user {
     NavigationViewController *curNav = (NavigationViewController *)self;
+//    NavigationViewController *curNav = [[NavigationViewController alloc] initWithRootViewController:self];
     
 #if kTestChatAttachment
     // 无则重新创建
@@ -41,9 +43,8 @@
     {
         [curNav popToRootViewControllerAnimated:YES];
     }
-
+    
 }
-
 
 /*
 #pragma mark - Navigation
@@ -55,4 +56,11 @@
 }
 */
 
+- (IBAction)chatButton:(id)sender {
+    IMAUser* lover = [[IMAUser alloc] initWith:@"fdb"];
+    lover.nickName = @"龙卷风";
+    lover.remark = @"亲爱的";
+    //lover.icon = @"";
+    [[AppDelegate sharedAppDelegate] pushToChatViewControllerWith:lover];
+}
 @end

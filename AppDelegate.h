@@ -10,7 +10,7 @@
 #import <Foundation/Foundation.h>
 #import "IMAAppDelegate.h"
 #import "LoginAndRegisterViewController.h"
-#import "ContainerMyMessageViewController.h"
+#import "HomeTabBarController.h"
 
 @interface AppDelegate : IMAAppDelegate
 

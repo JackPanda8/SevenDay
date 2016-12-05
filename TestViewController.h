@@ -1,17 +1,17 @@
 //
-//  ContainerMyMessageViewController.h
+//  TestViewController.h
 //  SevenDay
 //
 //  Created by macbook for test on 16/12/2.
 //  Copyright © 2016年 JackPanda8. All rights reserved.
 //
-//已废弃
 
 #import <UIKit/UIKit.h>
 
-@interface ContainerMyMessageViewController : UIViewController
+@interface TestViewController : UIViewController
 
-//进入到C2C聊天视图
+- (IBAction)chatButton:(id)sender;
+
 - (void)pushToChatViewControllerWith:(IMAUser *)user;
 
 @end

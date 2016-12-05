@@ -17,13 +17,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    self.edgesForExtendedLayout = UIRectEdgeNone;//解决tableviewcell被顶部导航栏遮挡的问题
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];//去掉多余的行
     
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
-    
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -62,7 +58,17 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     NSInteger row = [indexPath row];
     if(row == 0) {
-        IMAUser* lover = [[IMAUser alloc] initWith:@"fdb"];
+        /*IMAUser* lover = [[IMAUser alloc] initWith:@"fdb"];
+        lover.nickName = @"龙卷风";
+        lover.remark = @"亲爱的";
+        //lover.icon = @"";
+        [[AppDelegate sharedAppDelegate] pushToChatViewControllerWith:lover];*/
+        
+        
+        IMAUser* lover = [[IMAUser alloc] initWith:@"user1"];
+        lover.nickName = @"小绵羊";
+//        lover.remark = @"honey";
+        //lover.icon = @"";
         [[AppDelegate sharedAppDelegate] pushToChatViewControllerWith:lover];
     } else if(row == 1) {
         //进入到系统消息界面
