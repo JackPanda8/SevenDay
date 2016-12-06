@@ -26,7 +26,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="D1S-4T-zM6">
-                                <rect key="frame" x="46" y="567" width="120" height="40"/>
+                                <rect key="frame" x="36" y="567" width="120" height="40"/>
                                 <color key="backgroundColor" red="0.99999600648880005" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="120" id="FYK-Uu-6CV"/>
@@ -42,7 +42,7 @@
                                 </userDefinedRuntimeAttributes>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QYH-Qs-FDE">
-                                <rect key="frame" x="209" y="567" width="120" height="40"/>
+                                <rect key="frame" x="219" y="567" width="120" height="40"/>
                                 <color key="backgroundColor" red="0.99999600648880005" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="YPd-jZ-JTX"/>
@@ -64,11 +64,11 @@
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="nMU-ei-l5I" secondAttribute="trailing" id="2eU-ZT-5kJ"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="QYH-Qs-FDE" secondAttribute="trailing" constant="30" id="52X-8P-Vvx"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="QYH-Qs-FDE" secondAttribute="trailing" constant="20" id="52X-8P-Vvx"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="nMU-ei-l5I" secondAttribute="bottom" id="JaV-Hz-fPP"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="QYH-Qs-FDE" secondAttribute="bottom" constant="60" id="PeX-F1-mnQ"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="D1S-4T-zM6" secondAttribute="bottom" constant="60" id="Zb3-6B-zxD"/>
-                            <constraint firstItem="D1S-4T-zM6" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="30" id="dpc-pg-UBU"/>
+                            <constraint firstItem="D1S-4T-zM6" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="20" id="dpc-pg-UBU"/>
                             <constraint firstItem="nMU-ei-l5I" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="gcD-2c-0MN"/>
                             <constraint firstItem="nMU-ei-l5I" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="smk-JI-hhW"/>
                         </constraints>
@@ -203,7 +203,7 @@
         <!--我-->
         <scene sceneID="VUK-cP-wmP">
             <objects>
-                <viewController storyboardIdentifier="MyselfViewController" id="eeo-tJ-BDO" customClass="MyselfViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="MyselfViewController" title="我" id="eeo-tJ-BDO" customClass="MyselfViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="AIR-2s-8LG"/>
                         <viewControllerLayoutGuide type="bottom" id="cNs-0j-RIA"/>
@@ -247,7 +247,7 @@
         <!--社区-->
         <scene sceneID="wvR-Ub-bGN">
             <objects>
-                <viewController storyboardIdentifier="CommunityViewController" id="hAt-CB-kKe" customClass="CommunityViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="CommunityViewController" title="社区" id="hAt-CB-kKe" customClass="CommunityViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="h3Y-65-tRQ"/>
                         <viewControllerLayoutGuide type="bottom" id="SHJ-gb-oRM"/>
@@ -286,7 +286,7 @@
         <!--恋爱记-->
         <scene sceneID="SXe-Hz-2aW">
             <objects>
-                <viewController storyboardIdentifier="LoveDiaryViewController" id="HNt-dE-sf6" customClass="LoveDiaryViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="LoveDiaryViewController" title="恋爱记" id="HNt-dE-sf6" customClass="LoveDiaryViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="vFG-BI-z2f"/>
                         <viewControllerLayoutGuide type="bottom" id="Geq-T6-yeF"/>
@@ -344,10 +344,10 @@
             </objects>
             <point key="canvasLocation" x="622" y="1880"/>
         </scene>
-        <!--Item-->
+        <!--消息-->
         <scene sceneID="hDZ-cI-6hq">
             <objects>
-                <tableViewController storyboardIdentifier="MyMessageTableViewController" automaticallyAdjustsScrollViewInsets="NO" id="dU9-A7-Fcy" customClass="MyMessageTableViewController" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="MyMessageTableViewController" title="消息" automaticallyAdjustsScrollViewInsets="NO" id="dU9-A7-Fcy" customClass="MyMessageTableViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="Ofh-t2-LGM">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -379,7 +379,7 @@
                             <outlet property="delegate" destination="dU9-A7-Fcy" id="sFF-ej-HK0"/>
                         </connections>
                     </tableView>
-                    <tabBarItem key="tabBarItem" title="Item" id="fQo-3z-LfA"/>
+                    <tabBarItem key="tabBarItem" title="消息" id="fQo-3z-LfA"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="oTc-aM-u1w" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

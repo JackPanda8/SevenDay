@@ -29,9 +29,8 @@
     UIStoryboard* main = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
     LoginAndRegisterViewController *vc = [main instantiateViewControllerWithIdentifier:@"LoginAndRegisterViewController"];
     self.window.rootViewController = vc;
-//    [self.window makeKeyAndVisible];
     
-//    HomeViewController *vc = [[HomeViewController alloc] init];
+//    LoginAndRegisterViewController *vc = [[LoginAndRegisterViewController alloc] init];
 //    self.window.rootViewController = vc;
 }
 
