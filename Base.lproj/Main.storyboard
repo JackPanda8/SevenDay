@@ -22,7 +22,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="home1.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="nMU-ei-l5I">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="home1.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="gzj-wj-ezP">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="D1S-4T-zM6">
@@ -63,25 +63,25 @@
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstAttribute="trailing" secondItem="nMU-ei-l5I" secondAttribute="trailing" id="2eU-ZT-5kJ"/>
                             <constraint firstAttribute="trailingMargin" secondItem="QYH-Qs-FDE" secondAttribute="trailing" constant="20" id="52X-8P-Vvx"/>
-                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="nMU-ei-l5I" secondAttribute="bottom" id="JaV-Hz-fPP"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="QYH-Qs-FDE" secondAttribute="bottom" constant="60" id="PeX-F1-mnQ"/>
+                            <constraint firstItem="gzj-wj-ezP" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="Yk5-AC-OGS"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="D1S-4T-zM6" secondAttribute="bottom" constant="60" id="Zb3-6B-zxD"/>
                             <constraint firstItem="D1S-4T-zM6" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="20" id="dpc-pg-UBU"/>
-                            <constraint firstItem="nMU-ei-l5I" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="gcD-2c-0MN"/>
-                            <constraint firstItem="nMU-ei-l5I" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="smk-JI-hhW"/>
+                            <constraint firstAttribute="trailing" secondItem="gzj-wj-ezP" secondAttribute="trailing" id="ku5-fC-4eb"/>
+                            <constraint firstItem="gzj-wj-ezP" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="wY4-fX-To1"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="gzj-wj-ezP" secondAttribute="bottom" id="yHz-rR-SKz"/>
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="background" destination="nMU-ei-l5I" id="1cp-OI-SXd"/>
+                        <outlet property="background" destination="gzj-wj-ezP" id="BZf-Qu-uBC"/>
                         <outlet property="loginButton" destination="QYH-Qs-FDE" id="6OR-x2-bvd"/>
                         <outlet property="registerButton" destination="D1S-4T-zM6" id="hcG-Qo-YSb"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2.5" y="40.019999999999996"/>
+            <point key="canvasLocation" x="2.5" y="39.5"/>
         </scene>
         <!--账号登录-->
         <scene sceneID="ma4-nh-j81">

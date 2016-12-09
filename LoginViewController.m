@@ -19,7 +19,7 @@
 
 @property(atomic, strong) IMALoginParam* loginParam;//登录参数
 
--(NSString*)getUserSigFromServerByPhoneNumber:(NSString*) phoneNumber andPassword:(NSString* )password;//向后台发送登录验证请求，获取UserSig用于向腾讯服务器发送验证
+-(NSString*)getUserSigFromServerByPhoneNumber:(NSString*) phoneNumber andPassword:(NSString* )password;//向后台发送登录验证请求，获取UserSig用于向腾讯服务器发送验证(废弃，改成托管模式)
 
 @end
 
@@ -66,7 +66,11 @@
     [_loginParam setSdkAppId:SdkAppId];
     [_loginParam setAccountType:AccountType];
     [_loginParam setAppidAt3rd:AppIdAt3rd];
-    [_loginParam setUserSig:[self getUserSigFromServerByPhoneNumber:_phoneNumber.text andPassword:_password.text]];
+    
+    //托管模式的usersig从腾讯云服务器获得，独立模式的sig才是从本方的服务器获取
+//    [_loginParam setUserSig:[self getUserSigFromServerByPhoneNumber:_phoneNumber.text andPassword:_password.text]];
+    _loginParam.userSig = [[TLSHelper getInstance] getTLSUserSig:_phoneNumber.text];
+    NSLog(@"usersig = %@", _loginParam.userSig);
     
     //直接登录
     __weak LoginViewController *weakSelf = self;
@@ -145,7 +149,8 @@
 }
 
 
-//从IMALoginViewController复制过来
+#pragma - 从IMALoginViewController复制过来
+
 - (void)enterMainUI
 {
     //    _tlsuiwx = nil;
@@ -169,6 +174,7 @@
         {
             _loginParam.identifier = userinfo.identifier;
             _loginParam.userSig = [[TLSHelper getInstance] getTLSUserSig:userinfo.identifier];
+            NSLog(@"!!!!!!!!!!!!%@", _loginParam.userSig);
             _loginParam.tokenTime = [[NSDate date] timeIntervalSince1970];
             
             // 获取本地的登录config
@@ -196,6 +202,23 @@
     }];
 }
 
+#pragma mark - 拉起登陆框
+- (void)pullLoginUI
+{
+//    TLSUILoginSetting *setting = [[TLSUILoginSetting alloc] init];
+    //    _openQQ = [[TencentOAuth alloc]initWithAppId:QQ_APP_ID andDelegate:self];
+    //    [setting setOpenQQ:_openQQ];
+    //    setting.qqScope = nil;
+    //    setting.wxScope = @"snsapi_userinfo";
+    //    setting.enableWXExchange = YES;
+    //    setting.enableGuest = YES;
+    //    _setting.needBack = YES;
+    //demo暂不提供微博登录
+    //    tlsSetting.wbScope = nil;
+    //    tlsSetting.wbRedirectURI = @"https://api.weibo.com/oauth2/default.html";
+    //    _tlsuiwx = TLSUILogin(self, setting);
+//    TLSUILogin(self, setting);
+}
 
 #pragma mark - delegate<TLSUILoginListener>
 -(void)TLSUILoginOK:(TLSUserInfo *)userinfo
@@ -291,15 +314,3 @@
 }
 
 @end
-
-
-
-
-
-
-
-
-
-
-
-

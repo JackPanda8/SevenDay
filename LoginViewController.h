@@ -9,12 +9,16 @@
 #import <UIKit/UIKit.h>
 #import <ImSDK/ImSDK.h>
 #import "AppDelegate.h"
+
+#import <TencentOpenAPI/TencentOAuth.h>
+#import "WXApi.h"
+
 #import "IMALoginViewController.h"
 #import "TLSUI/TLSUI.h"
 #import "TLSSDK/TLSRefreshTicketListener.h"
 #import "TLSSDK/TLSOpenLoginListener.h"
 
-@interface LoginViewController : UIViewController
+@interface LoginViewController : IMALoginViewController
 //<TIMUserStatusListener,TLSUILoginListener,TLSRefreshTicketListener,TLSOpenLoginListener>
 
 @property (weak, nonatomic) IBOutlet UITextField *phoneNumber;
