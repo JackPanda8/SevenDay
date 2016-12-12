@@ -20,12 +20,30 @@
                     <view key="view" contentMode="scaleToFill" id="Ze5-6b-2t3">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="home2.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="vCw-iv-kS6">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstItem="vCw-iv-kS6" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leading" id="0hG-6f-UAM"/>
+                            <constraint firstItem="vCw-iv-kS6" firstAttribute="top" secondItem="Ze5-6b-2t3" secondAttribute="top" id="MCx-KK-JLS"/>
+                            <constraint firstItem="xb3-aO-Qok" firstAttribute="top" secondItem="vCw-iv-kS6" secondAttribute="bottom" id="Ncs-24-sde"/>
+                            <constraint firstAttribute="trailing" secondItem="vCw-iv-kS6" secondAttribute="trailing" id="p4W-aP-x7M"/>
+                        </constraints>
                     </view>
+                    <extendedEdge key="edgesForExtendedLayout"/>
+                    <nil key="simulatedStatusBarMetrics"/>
+                    <nil key="simulatedTopBarMetrics"/>
+                    <nil key="simulatedBottomBarMetrics"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iYj-Kq-Ea1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="53" y="375"/>
+            <point key="canvasLocation" x="52" y="374.66266866566718"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="home2.jpg" width="1080" height="1920"/>
+    </resources>
 </document>
