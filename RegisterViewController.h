@@ -8,9 +8,11 @@
 
 #import <UIKit/UIKit.h>
 #import <TLSSDK/TLSAccountHelper.h>
-#import <TLSSDK/TLSSmsRegListener.h>
+#import <TLSSDK/TLSPwdRegListener.h>
+#import "RegExpUtil.h"
+#import "SetPasswordViewController.h"
 
-@interface RegisterViewController : UIViewController <TLSSmsRegListener>
+@interface RegisterViewController : UIViewController 
 
 @property (weak, nonatomic) IBOutlet UITextField *phoneNumber;
 @property (weak, nonatomic) IBOutlet UITextField *verificationCode;

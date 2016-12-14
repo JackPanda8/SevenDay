@@ -24,14 +24,115 @@
     // Dispose of any resources that can be recreated.
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+- (IBAction)nextStep:(id)sender {
+    if([self checkPwd]) {
+        [[HUDHelper sharedInstance] syncLoading:@"注册中..."];
+        [self postPassword:_inputPwd.text ofUserPhoneNum:_phoneNumber];
+//        [[TLSHelper getInstance] TLSPwdRegCommit:_inputPwd.text andTLSPwdRegListener:self];
+    }
 }
-*/
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if([[segue identifier] isEqualToString:@"JumpToInfoVC"]) {
+        CompleteBasicInfoViewController* comInfoVC = [[CompleteBasicInfoViewController alloc] init];
+        comInfoVC.phoneNumber = _phoneNumber;
+    }
+}
+
+- (BOOL)checkPwd {
+    if([_inputPwd.text isEqualToString:@""] || [_inputPwdAgain.text isEqualToString:@""]) {
+        [[HUDHelper sharedInstance] tipMessage:@"密码不能为空"];
+        return NO;
+    } else {
+        if(![_inputPwdAgain.text isEqualToString:_inputPwd.text]) {
+            [[HUDHelper sharedInstance] tipMessage:@"两次输入的密码不一致"];
+            return NO;
+        } else {
+            if(!( [RegExpUtil validatePassword:_inputPwd.text] && [RegExpUtil validatePassword:_inputPwdAgain.text] )) {
+                [[HUDHelper sharedInstance] tipMessage:@"密码必须由6~20位数字字母或符号组成"];
+                return NO;
+            }
+        }
+    }
+    
+    return YES;
+}
+
+#pragma 与后台通信，传递用户名和密码，尚未加密
+
+- (void)postPassword:(NSString*)password ofUserPhoneNum:(NSString*) identifier {
+    for(int i = 0; i < 20000; i++) {
+        if (i == 19999) {
+            break;
+        }
+    }
+    
+    [[HUDHelper sharedInstance] syncLoading:@"密码设置成功"];
+    //跳转到完善信息界面
+    [self performSegueWithIdentifier:@"JumpToInfoVC" sender:nil];
+
+}
+
+#pragma - TLSPwdRegListener delegate method
+
+/**
+ *  请求短信验证码成功
+ *
+ *  @param reaskDuration 下次请求间隔
+ *  @param expireDuration 验证码有效期
+ */
+-(void)	OnPwdRegAskCodeSuccess:(int)reaskDuration andExpireDuration:(int) expireDuration {
+    
+}
+
+/**
+ *  刷新短信验证码请求成功
+ *
+ *  @param reaskDuration 下次请求间隔
+ *  @param expireDuration 验证码有效期
+ */
+-(void)	OnPwdRegReaskCodeSuccess:(int)reaskDuration andExpireDuration:(int)expireDuration {
+    
+}
+
+/**
+ *  验证短信验证码成功
+ */
+-(void)	OnPwdRegVerifyCodeSuccess {
+    
+}
+
+/**
+ *  提交注册成功
+ *
+ *  @param userInfo 用户信息
+ */
+-(void)	OnPwdRegCommitSuccess:(TLSUserInfo *)userInfo {
+//    [[HUDHelper sharedInstance] syncLoading:@"注册完成"];
+//    //跳转到完善信息界面
+//    dispatch_async(dispatch_get_main_queue(), ^{
+//        [self performSegueWithIdentifier:@"JumpToInfoVC" sender:nil];
+//    });
+}
+
+/**
+ *  短信注册失败
+ *
+ *  @param errInfo 错误信息
+ */
+-(void)	OnPwdRegFail:(TLSErrInfo *) errInfo{
+//    [HUDHelper alertTitle:@"网络请求超时" message:@"请重试" cancel:@"好的"];
+
+}
+
+/**
+ *  短信注册超时
+ *
+ *  @param errInfo 错误信息
+ */
+-(void)	OnPwdRegTimeout:(TLSErrInfo *) errInfo{
+//    [HUDHelper alertTitle:@"网络请求超时" message:@"请重试" cancel:@"好的"];
+
+}
 
 @end
