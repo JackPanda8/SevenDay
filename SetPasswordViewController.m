@@ -7,6 +7,7 @@
 //
 
 #import "SetPasswordViewController.h"
+NSString* const SET_PASSWORD_URL = @"https://";
 
 @interface SetPasswordViewController ()
 
@@ -58,19 +59,23 @@
     return YES;
 }
 
-#pragma 与后台通信，传递用户名和密码，尚未加密
+#pragma 与后台通信，传递用户名和md5密码
 
 - (void)postPassword:(NSString*)password ofUserPhoneNum:(NSString*) identifier {
-    for(int i = 0; i < 20000; i++) {
-        if (i == 19999) {
-            break;
-        }
-    }
+    AFHTTPSessionManager* sessionManager = [AFHTTPSessionManager manager];
+    sessionManager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    sessionManager.requestSerializer = [AFHTTPRequestSerializer serializer];
+    NSMutableDictionary* dic = [[NSMutableDictionary alloc] init];
+    [dic setValue:_phoneNumber forKey:@"UserName"];
+    [dic setValue:[MD5 MD5String:_inputPwd.text] forKey:@"Password"];
+    [sessionManager POST:SET_PASSWORD_URL parameters:dic progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        [[HUDHelper sharedInstance] tipMessage:@"密码设置成功"];
+        //跳转到完善信息界面
+        [self performSegueWithIdentifier:@"JumpToInfoVC" sender:nil];
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        [[HUDHelper sharedInstance] tipMessage:@"密码设置失败，请重试"];
+    }];
     
-    [[HUDHelper sharedInstance] syncLoading:@"密码设置成功"];
-    //跳转到完善信息界面
-    [self performSegueWithIdentifier:@"JumpToInfoVC" sender:nil];
-
 }
 
 #pragma - TLSPwdRegListener delegate method

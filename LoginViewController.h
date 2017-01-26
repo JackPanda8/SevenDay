@@ -10,6 +10,9 @@
 #import <ImSDK/ImSDK.h>
 #import "AppDelegate.h"
 #import "RegExpUtil.h"
+#import "MD5.h"
+#import "TokensUtil.h"
+#import <AFNetworking.h>
 
 #import <TencentOpenAPI/TencentOAuth.h>
 #import "WXApi.h"

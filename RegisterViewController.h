@@ -11,11 +11,16 @@
 #import <TLSSDK/TLSPwdRegListener.h>
 #import "RegExpUtil.h"
 #import "SetPasswordViewController.h"
+#import <AFNetworking/AFNetworking.h>
+#import "DBCountDownButton.h"
+#import <ReactiveObjC.h>
 
 @interface RegisterViewController : UIViewController 
 
 @property (weak, nonatomic) IBOutlet UITextField *phoneNumber;
 @property (weak, nonatomic) IBOutlet UITextField *verificationCode;
+@property (weak, nonatomic) IBOutlet DBCountDownButton *countDownButton;
+
 - (IBAction)getVerificaitonCode:(id)sender;
 - (IBAction)nextStep:(id)sender;
 

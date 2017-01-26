@@ -9,8 +9,10 @@
 #import <UIKit/UIKit.h>
 #import <TLSSDK/TLSAccountHelper.h>
 #import <TLSSDK/TLSPwdRegListener.h>
+#import <AFNetworking.h>
 #import "RegExpUtil.h"
 #import "CompleteBasicInfoViewController.h"
+#import "MD5.h"
 
 @interface SetPasswordViewController : UIViewController 
 

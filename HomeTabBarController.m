@@ -23,22 +23,35 @@
     //社区
     CommunityViewController *commVC = [main instantiateViewControllerWithIdentifier:@"CommunityViewController"];
     NavigationViewController *commNVC = [[NavigationViewController alloc] initWithRootViewController:commVC];
-    commNVC.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"社区" image:kIconConversationNormal selectedImage:kIconConversationHover];
+    //UITabBar设置未选中图片
+    [commNVC.tabBarItem setImage:[[UIImage imageNamed:@"community_icon_off"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
+    //UITabBar设置选中图片
+    [commNVC.tabBarItem setSelectedImage:[[UIImage imageNamed:@"community_icon_on"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
     
     //消息
     MyMessageTableViewController *mymeVC = [main instantiateViewControllerWithIdentifier:@"MyMessageTableViewController"];
     NavigationViewController *mymeNVC = [[NavigationViewController alloc] initWithRootViewController:mymeVC];
-    mymeNVC.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"我的消息" image:kIconContactsNormal selectedImage:kIconContactsHover];
+    //UITabBar设置未选中图片
+    [mymeNVC.tabBarItem setImage:[[UIImage imageNamed:@"message_icon_off"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
+    //UITabBar设置选中图片
+    [mymeNVC.tabBarItem setSelectedImage:[[UIImage imageNamed:@"message_icon_on"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
     
     //恋爱记
     LoveDiaryViewController *loveVC = [main instantiateViewControllerWithIdentifier:@"LoveDiaryViewController"];
     NavigationViewController *loveNVC = [[NavigationViewController alloc] initWithRootViewController:loveVC];
-    loveNVC.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"恋爱记" image:kIconSetupNormal selectedImage:kIconSetupHover];
+    //UITabBar设置未选中图片
+    [loveNVC.tabBarItem setImage:[[UIImage imageNamed:@"love_icon_off"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
+    //UITabBar设置选中图片
+    [loveNVC.tabBarItem setSelectedImage:[[UIImage imageNamed:@"love_icon_on"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
     
     //我
     MyselfViewController *myseVC = [main instantiateViewControllerWithIdentifier:@"MyselfViewController"];
     NavigationViewController *myseNVC = [[NavigationViewController alloc] initWithRootViewController:myseVC];
-    myseNVC.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"我" image:kIconContactsNormal selectedImage:kIconContactsHover];
+    //UITabBar设置未选中图片
+    [myseNVC.tabBarItem setImage:[[UIImage imageNamed:@"me_icon_off"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
+    //UITabBar设置选中图片
+    [myseNVC.tabBarItem setSelectedImage:[[UIImage imageNamed:@"me_icon_on"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
+    
     
 //    //社区
 //    CommunityViewController *commVC = [[CommunityViewController alloc] init];

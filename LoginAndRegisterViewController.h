@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "TokensUtil.h"
 #import "IMALoginViewController.h"
+#import <AFNetworking.h>
+#import "MBProgressHUD.h"
 
 @interface LoginAndRegisterViewController : IMALoginViewController
 

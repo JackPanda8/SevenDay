@@ -21,7 +21,7 @@
 @property(atomic, strong) IMALoginParam* loginParam;//登录参数
 @property(strong, nonatomic) NSString* standardPhoneNum;//标准格式的电话号码
 
--(NSString*)getUserSigFromServerByIdentifier:(NSString*) phoneNumber withPassword:(NSString*) password;//向后台发送登录验证请求，获取UserSig用于向腾讯服务器发送验证
+-(NSMutableDictionary*)getTokensFromServerByIdentifier:(NSString*) phoneNumber withPassword:(NSString*) password;//向后台发送登录验证请求，获取3个token
 
 @end
 
@@ -71,34 +71,31 @@
         //隐藏键盘
         [[UIApplication sharedApplication] sendAction:@selector(resignFirstResponder) to:nil from:nil forEvent:nil];
         
-//        _standardPhoneNum = [NSString stringWithFormat:@"86-%@", _phoneNumber.text];
+        //转化为后台需要的电话号码格式
         _standardPhoneNum = [NSString stringWithFormat:@"%@", _phoneNumber.text];
-        //向腾讯TLS服务器发送登录请求
-        //    [[TLSHelper getInstance] TLSPwdLogin:_standardPhoneNum andPassword:_password.text andTLSPwdLoginListener:self];
         
+        //配置登录参数
         [_loginParam setIdentifier:_standardPhoneNum];
         [_loginParam setSdkAppId:SdkAppId];
         [_loginParam setAccountType:AccountType];
         [_loginParam setAppidAt3rd:AppIdAt3rd];
         
-        //后台获取userSig,密码不能明文传递，后面要改成加密方式
-        NSString* userSig = [self getUserSigFromServerByIdentifier:_standardPhoneNum withPassword:_password.text];
-        [_loginParam setUserSig:userSig];
+        [[HUDHelper sharedInstance] syncLoading:@"正在登录"];
+
+        //从后台获取userSig,login_token, access_token
+        NSMutableDictionary* tokens = [self getTokensFromServerByIdentifier:_standardPhoneNum withPassword:_password.text];
+        [_loginParam setUserSig:[tokens valueForKey:@"UserSig"]];
         
         //直接登录
         __weak LoginViewController *weakSelf = self;
-        [[HUDHelper sharedInstance] syncLoading:@"正在登录"];
         [[IMAPlatform sharedInstance] login:_loginParam succ:^{
             [[HUDHelper sharedInstance] syncStopLoadingMessage:@"登录成功"];
             //        [_loginParam saveToLocal];//!!!!!!将登录信息存在本地
             [weakSelf enterMainUI];
         } fail:^(int code, NSString *msg) {
             [[HUDHelper sharedInstance] syncStopLoadingMessage:IMALocalizedError(code, msg) delay:2 completion:^{
-                
-                NSLog(@"登录失败，错误码：%d, 错误信息：%@", code, msg);
-//                UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"登录失败" message:[NSString stringWithFormat:@"错误码：%d, 错误信息：%@", code, msg] delegate:self cancelButtonTitle:@"好的" otherButtonTitles:nil, nil];
-//                [alert show];
-                [HUDHelper alertTitle:@"登录失败" message:[NSString stringWithFormat:@"错误码：%d, 错误信息：%@", code, msg]
+                [HUDHelper alertTitle:@"登录失败"
+                              message:[NSString stringWithFormat:@"错误码：%d, 错误信息：%@", code, msg]
                                cancel:@"好的"];
                 
                 [[AppDelegate sharedAppDelegate] enterLoginUI];
@@ -145,25 +142,53 @@
     [[UIApplication sharedApplication] sendAction:@selector(resignFirstResponder) to:nil from:nil forEvent:nil];
 }
 
--(NSString*)getUserSigFromServerByIdentifier:(NSString*) phoneNumber withPassword:(NSString*) password{//向后台发送登录验证请求，获取UserSig用于向腾讯服务器发送验证
-    NSString* userSig;
+#pragma - 和后台交互
+//向后台发送登录验证请求，获取login_token, access_token和userSig
+- (NSMutableDictionary*)getTokensFromServerByIdentifier:(NSString*) phoneNumber withPassword:(NSString*) password{
+//    NSString* md5Password = [MD5 MD5String:password];
+//    NSString* domainString = [NSString stringWithFormat:@"https://login/username = %@&&password = %@", _standardPhoneNum, md5Password];
+//    NSMutableDictionary* tokens;//三个token
+//    
+//    AFHTTPSessionManager* sessionManager = [AFHTTPSessionManager manager];
+//    sessionManager.requestSerializer = [AFHTTPRequestSerializer serializer];
+//    sessionManager.responseSerializer = [AFHTTPResponseSerializer serializer];
+//   
+//    [sessionManager GET:domainString parameters:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+//        //请求成功
+//        [tokens setValue:[responseObject valueForKey:@"AccessToken"] forKey:@"AccessToken"];
+//        [tokens setValue:[responseObject valueForKey:@"LoginToken"] forKey:@"LoginToken"];
+//        [tokens setValue:[responseObject valueForKey:@"UserSig"] forKey:@"UserSig"];
+//        
+//        //将LoginToken,AccessToken和UserSig存入沙盒的Library/Preference目录中
+//        [TokensUtil setTokens:tokens];
+//        
+//    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+//        //请求失败
+//        [[HUDHelper sharedInstance] syncStopLoadingMessage:[NSString stringWithFormat:@"登录请求失败，%@", error.localizedDescription] delay:2 completion:^{
+//            
+//            [[AppDelegate sharedAppDelegate] enterLoginUI];
+//            
+//        }];
+//    }];
     
+    NSMutableDictionary* tokens = [[NSMutableDictionary alloc] init];//三个token
     if([phoneNumber isEqualToString:@"fdb"]) {
-        userSig = @"eJxNjd1OgzAARt*ltxgp7RqHyS4YYFTExc1hMCRNoS3pdMBKJW7Gd7chmO32nO-nB7w*ba5ZVbVfjaHm2AlwCyC4GrHiojFKKqEtlLycMOs6xSkzFGt*ke75Bx2VZd4MQugRCPEkxXentKBMmnHMI4QgG5nsIHSv2sYKZFsewhCepVF7MU7OLSMIof8-VVucxi-hQ*TAkA04y7PwMUN8fojLflc93830STeSYXNM0-X7bh9EXaCWsk2Mc58nvl*4-iZKP9fJW4LLg1npm2DF4u1QuEG93Oa1U7j1YgF*-wD3Llb9";
+        [tokens setValue:@"eJxNjd1OgzAARt*ltxgp7RqHyS4YYFTExc1hMCRNoS3pdMBKJW7Gd7chmO32nO-nB7w*ba5ZVbVfjaHm2AlwCyC4GrHiojFKKqEtlLycMOs6xSkzFGt*ke75Bx2VZd4MQugRCPEkxXentKBMmnHMI4QgG5nsIHSv2sYKZFsewhCepVF7MU7OLSMIof8-VVucxi-hQ*TAkA04y7PwMUN8fojLflc93830STeSYXNM0-X7bh9EXaCWsk2Mc58nvl*4-iZKP9fJW4LLg1npm2DF4u1QuEG93Oa1U7j1YgF*-wD3Llb9"
+                  forKey:@"UserSig"];
     } else if([phoneNumber isEqualToString:@"user1"]) {
-        userSig = @"eJxNjc1Og0AURt*FtZEBOhZNXFhKpaZKxdpCQjKhcIFbKaXDAEXjuzshGN2e8-18KZvV23UUx6emFEz0FSh3ClGuBowJlAJTBC5hUwPXRhFVFSYsEszgyb98nXywQUmmTQghGiXEGCVcKuTAolQMcxqlVJeR0bbAazyVUuiypekGIX9S4BGGSVMyqpuT3z-MJH62363l69wL1e7Gv22FP42sAxi5u4NL5iyeZlgH8TZ97FbFOUef5NNsmVmh6h7n*3zbFgfHRn-x4vXrBw-OoTrbuJ*20ZuuU*yDdbMLunvl*wcYwFl1";
+        [tokens setValue:@"eJxNjc1Og0AURt*FtZEBOhZNXFhKpaZKxdpCQjKhcIFbKaXDAEXjuzshGN2e8-18KZvV23UUx6emFEz0FSh3ClGuBowJlAJTBC5hUwPXRhFVFSYsEszgyb98nXywQUmmTQghGiXEGCVcKuTAolQMcxqlVJeR0bbAazyVUuiypekGIX9S4BGGSVMyqpuT3z-MJH62363l69wL1e7Gv22FP42sAxi5u4NL5iyeZlgH8TZ97FbFOUef5NNsmVmh6h7n*3zbFgfHRn-x4vXrBw-OoTrbuJ*20ZuuU*yDdbMLunvl*wcYwFl1" forKey:@"UserSig"];
     } else if([phoneNumber isEqualToString:@"user2"]) {
-        userSig = @"eJxNjV1PgzAUhv8L10YPhZrOZBc4t0QBEUcyL5Y0uJZ5mBZGywaY-XcbgtHb53k-vp0sWl-nu13VKsNNX0vnzgHnasQopDJYoGwsbLVsyCTyukbBc8O9RvzLa3Hgo7LM9QHApQDeJGVXYyN5XphxzqWUEhuZ7Ek2GitlBbEtl3gAf9LglxwnGRBCbmez3z-cWxwv08XjSjE-CaNSrCRWKQuhu39PaSZ0QoO10P2QF2Gky6jcxwEGb*LFxf5JDEwdy-icfLDM3xyTZ-J5Covq8NAt282g-O3Na3Wez53LD2w4WSU_";
+        [tokens setValue:@"eJxNjV1PgzAUhv8L10YPhZrOZBc4t0QBEUcyL5Y0uJZ5mBZGywaY-XcbgtHb53k-vp0sWl-nu13VKsNNX0vnzgHnasQopDJYoGwsbLVsyCTyukbBc8O9RvzLa3Hgo7LM9QHApQDeJGVXYyN5XphxzqWUEhuZ7Ek2GitlBbEtl3gAf9LglxwnGRBCbmez3z-cWxwv08XjSjE-CaNSrCRWKQuhu39PaSZ0QoO10P2QF2Gky6jcxwEGb*LFxf5JDEwdy-icfLDM3xyTZ-J5Covq8NAt282g-O3Na3Wez53LD2w4WSU_" forKey:@"UserSig"];
     } else if([phoneNumber isEqualToString:@"user3"]) {
-        userSig = @"eJxNjVtPgzAYhv9LbzXaFkiZiRdYyVAUdzYaE1LhAz8PwEoBjfG-ryFb5u3zvIdfsrpbnqksq7vKpOanAXJBKDkdMeZQGSwQtIVdC9rZC9U0mKfKpI7O-*Xb-CMdlWXMpZQyj9JDB74b1JCqwoxzzPM8biN724Nusa6s4LbFuEPpURr8gnHSp5wJ3xeHPywtvg-X8maqsXPF4Osge5ifqASuuXzOo3AR949QvrtR-3IeJeUwW9KnAMOAiRlXcrqKNyBxnWyvPt*yIto2iR9P5AbqxeutrEUl*slwSf52Jb5XWg__";
+        [tokens setValue:@"eJxNjVtPgzAYhv9LbzXaFkiZiRdYyVAUdzYaE1LhAz8PwEoBjfG-ryFb5u3zvIdfsrpbnqksq7vKpOanAXJBKDkdMeZQGSwQtIVdC9rZC9U0mKfKpI7O-*Xb-CMdlWXMpZQyj9JDB74b1JCqwoxzzPM8biN724Nusa6s4LbFuEPpURr8gnHSp5wJ3xeHPywtvg-X8maqsXPF4Osge5ifqASuuXzOo3AR949QvrtR-3IeJeUwW9KnAMOAiRlXcrqKNyBxnWyvPt*yIto2iR9P5AbqxeutrEUl*slwSf52Jb5XWg__" forKey:@"UserSig"];
     } else if([phoneNumber isEqualToString:@"user4"]) {
-        userSig = @"eJxNjVtPgzAYhv8Ltxr5SiFzJl6QOWWKWwwgWULSNFDIB3KwtFM0**82BKO3z-Mevq04jK54nve6U0xNg7BuLLAuZ4yF6BSWKKSBehTSXQQfBiwYV4zK4l9*LBo2K8OICwDEA6CLFJ8DSsF4qeY54nmeYyKLPQk5Yt8Z4ZgWcSjAn1TYinnyGhyyWsPq9w8rg5*3yWbn91oFT7HSdw-BlEQvnorq9oCb-GOS*iL1S-7q1thIaAIft76TJpmdtt17ZldE*mNmn6oj3**pPrxhvM7sr139eMzvaZ7ZYQhwa51-APZYWbM_";
+        [tokens setValue:@"eJxNjVtPgzAYhv8Ltxr5SiFzJl6QOWWKWwwgWULSNFDIB3KwtFM0**82BKO3z-Mevq04jK54nve6U0xNg7BuLLAuZ4yF6BSWKKSBehTSXQQfBiwYV4zK4l9*LBo2K8OICwDEA6CLFJ8DSsF4qeY54nmeYyKLPQk5Yt8Z4ZgWcSjAn1TYinnyGhyyWsPq9w8rg5*3yWbn91oFT7HSdw-BlEQvnorq9oCb-GOS*iL1S-7q1thIaAIft76TJpmdtt17ZldE*mNmn6oj3**pPrxhvM7sr139eMzvaZ7ZYQhwa51-APZYWbM_" forKey:@"UserSig"];
     } else {
         //暂时和user4的一样
-        userSig =nil;
+        tokens = nil;
     }
     
-    return userSig;
+    return tokens;
 }
 
 #pragma - 跳转到忘记密码界面

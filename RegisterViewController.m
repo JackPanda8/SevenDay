@@ -7,6 +7,7 @@
 //
 
 #import "RegisterViewController.h"
+NSString* const GET_VERCODE_URL = @"https://";
 
 @interface RegisterViewController ()
 
@@ -22,7 +23,8 @@
     // Do any additional setup after loading the view.
     
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"返回" style:UIBarButtonItemStylePlain target:self action:@selector(back2HomeViewController)];
-
+    _countDownButton = [DBCountDownButton buttonWithType:UIButtonTypeCustom];
+    _countDownButton.autoControlButtonEnable = YES;
 }
 
 #pragma - Buttons
@@ -35,20 +37,45 @@
     //手机号码的格式为国家码-手机号码，如86-155xxxx
     if([self checkPhoneNumber:_phoneNumber.text]) {
         _standardPhoneNum = [NSString stringWithFormat:@"%@", _phoneNumber.text];
-//        [[TLSHelper getInstance] TLSPwdRegAskCode:_standardPhoneNum andTLSPwdRegListener:self];
-        [self getVerCodeFromServerWithPhoneNumber:_phoneNumber.text];
+        
+        //禁用获取验证码按钮，开始30s倒计时
+        [_countDownButton countDownChanging:^NSString *(DBCountDownButton *countDownButton, NSUInteger second) {
+            return [NSString stringWithFormat:@"%lu秒重新获取",(unsigned long)second];
+        }];
+        [_countDownButton countDownFinished:^NSString *(DBCountDownButton *countDownButton, NSUInteger second) {
+            //  倒计时结束设置button title
+            return @"获取验证码";
+        }];
+        @weakify(_countDownButton);
+        [[_countDownButton rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
+            @strongify(_countDownButton)
+            
+            [_countDownButton startCountDownWithSecond:30];
+        }];
+        [self getVerCodeFromServerWithPhoneNumber:_standardPhoneNum];
     }
 }
 
 - (void)getVerCodeFromServerWithPhoneNumber:(NSString*) phoneNum {
+    //向后台发送验证码请求
+    AFHTTPSessionManager* sessionManager = [AFHTTPSessionManager manager];
+    sessionManager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    sessionManager.requestSerializer = [AFHTTPRequestSerializer serializer];
+    [sessionManager GET:GET_VERCODE_URL parameters:_standardPhoneNum progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        [[HUDHelper sharedInstance] tipMessage:@"验证码发送成功，请注意查收"];
+        _verCodeFromServer = responseObject;
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        [[HUDHelper sharedInstance] tipMessage:@"验证码发送失败，请重试"];
+    }];
     
-    _verCodeFromServer = @"123456";
-    [[HUDHelper sharedInstance] tipMessage:@"验证码发送成功，请注意查收"];
+    
+//    _verCodeFromServer = @"123456";
+//    [[HUDHelper sharedInstance] tipMessage:@"验证码发送成功，请注意查收"];
 
 }
 
 //检查手机号的格式
-- (BOOL) checkPhoneNumber:(NSString*) number {
+- (BOOL) checkPhoneNumber: number {
     BOOL result = YES;
     if([number isEqualToString:@""]) {
         [HUDHelper alertTitle:@"请先填写手机号码" message:nil cancel:@"好的"];
@@ -69,9 +96,7 @@
     } else {
 //        [[TLSHelper getInstance] TLSPwdRegVerifyCode:_verificationCode.text andTLSPwdRegListener:self];
         if(![_verificationCode.text isEqualToString:_verCodeFromServer]) {
-            [[HUDHelper sharedInstance] tipMessage:@"验证码有误，请在30s后重试"];
-            //禁用获取验证码按钮，开始倒计时
-            
+            [[HUDHelper sharedInstance] tipMessage:@"验证码有误"];
         }else {
             //隐藏键盘
             [[UIApplication sharedApplication] sendAction:@selector(resignFirstResponder) to:nil from:nil forEvent:nil];

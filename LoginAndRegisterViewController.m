@@ -9,11 +9,16 @@
 #import "LoginAndRegisterViewController.h"
 #import <ImSDK/ImSDK.h>
 
+NSString* const FIRST_LOGIN_URL = @"https://";
+NSString* const REFRESH_TOKENS = @"https://";
+
 @interface LoginAndRegisterViewController ()
 
 @property(strong, atomic) IMALoginParam* loginParam;
 @property(atomic) BOOL isExcutingAutoLogining;
 @property(atomic) BOOL isExcutingPullLoginUI;
+
+- (void)loginWithLocalLoginToken;//使用loginToken首次尝试登录，成功返回AccessToken,失败重新请求票据
 
 @end
 
@@ -34,13 +39,14 @@
     _isExcutingPullLoginUI = NO;
     
     BOOL isAutoLogin = [IMAPlatform isAutoLogin];
+    
+    //
     if (isAutoLogin)
     {
         self.background.hidden = YES;
         self.registerButton.hidden = YES;
         self.loginButton.hidden = YES;
         _loginParam = [IMALoginParam loadFromLocal];
-        
     }
     else
     {
@@ -69,6 +75,44 @@
     // Dispose of any resources that can be recreated.
 }
 
+//读取本地LoginToken，向后台发起登录请求。若成功则返回AccessToken，写入覆盖本地AccessToken；若返回错误信息需持UserSig重新向后台请求得到新的三个token
+- (void)loginWithLocalLoginToken {
+    NSString* loginToken = [TokensUtil getLoginToken];
+    AFHTTPSessionManager* manager = [AFHTTPSessionManager manager];
+    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    manager.requestSerializer = [AFHTTPRequestSerializer serializer];
+    [manager GET:FIRST_LOGIN_URL parameters:loginToken progress:nil
+         success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+             NSLog(@"loginToken登录成功");
+             NSString* accessToken = responseObject;
+             [TokensUtil setAccessToken:accessToken];
+
+             [self loginIMSDK];//登录腾讯云服务器
+
+         } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+             NSLog(@"loginToken失效，刷新票据");
+             NSString* userSig = [TokensUtil getUserSig];
+             [manager GET:REFRESH_TOKENS parameters:userSig progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+                 NSMutableDictionary* newTokens = responseObject;
+                 [TokensUtil setTokens:newTokens];//存入本地
+                 
+                 [self loginIMSDK];//登录腾讯云服务器
+
+             } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+                 NSLog(@"再次请求三个Token出错，请重新登录");
+                 
+                 //使用MBProgressHUD库提示-登录失败，请重试
+                 MBProgressHUD* hud = [[MBProgressHUD alloc] initWithView:self.view];
+                 [self.view addSubview:hud];
+                 hud.labelText = @"登录失败，请重试";
+                 [hud show:YES];
+                 [hud hide:YES afterDelay:2];
+                 //进入登录界面
+                 [self pullLoginUI];
+             }];
+         }];
+}
+
 #pragma - 重写继承自IMALoginViewController的方法
 
 /**
@@ -79,14 +123,17 @@
     if(!_isExcutingAutoLogining) {
         if ([_loginParam isExpired])
         {
-            [[HUDHelper sharedInstance] syncLoading:@"刷新票据。。。"];
+            [[HUDHelper sharedInstance] syncLoading:@"刷新票据"];
             //刷新票据
             [[TLSHelper getInstance] TLSRefreshTicket:_loginParam.identifier andTLSRefreshTicketListener:self];
         }
         else
         {
-            [self loginIMSDK];
+            [[HUDHelper sharedInstance] syncLoading:@"正在登录"];
             _isExcutingAutoLogining = YES;//标志即将执行autologin方法
+//            [self loginWithLocalLoginToken];
+            [self loginIMSDK];//登录腾讯云服务器
+            
         }
     } else {
         NSLog(@"重复执行autologin，忽略之");
@@ -100,7 +147,7 @@
 {
     //直接登录
     __weak LoginAndRegisterViewController *weakSelf = self;
-    [[HUDHelper sharedInstance] syncLoading:@"正在登录"];
+//    [[HUDHelper sharedInstance] syncLoading:@"正在登录"];
     [[IMAPlatform sharedInstance] login:_loginParam succ:^{
         [[HUDHelper sharedInstance] syncStopLoadingMessage:@"登录成功"];
         
