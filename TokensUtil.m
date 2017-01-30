@@ -30,6 +30,10 @@
     NSMutableDictionary* tokens = [[NSUserDefaults standardUserDefaults] objectForKey:@"ThreeTokensFromServer"];
     return [tokens valueForKey:@"UserSig"];
 }
++(NSString*) getUserID {
+    NSMutableDictionary* tokens = [[NSUserDefaults standardUserDefaults] objectForKey:@"ThreeTokensFromServer"];
+    return [tokens valueForKey:@"UserID"];
+}
 +(void) setLoginToken:(NSString*) loginToken {
     NSMutableDictionary* tokens = [[NSUserDefaults standardUserDefaults] objectForKey:@"ThreeTokensFromServer"];
     [tokens setValue:loginToken forKey:@"LoginToken"];
@@ -47,5 +51,11 @@
     [[NSUserDefaults standardUserDefaults] setObject:tokens forKey:@"ThreeTokensFromServer"];
 
 }
++(void)setUserID:(NSString*) userID {
+    NSMutableDictionary* tokens = [[NSUserDefaults standardUserDefaults] objectForKey:@"ThreeTokensFromServer"];
+    [tokens setValue:userID forKey:@"UserID"];
+    [[NSUserDefaults standardUserDefaults] setObject:tokens forKey:@"ThreeTokensFromServer"];
+}
+
 
 @end

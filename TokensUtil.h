@@ -15,8 +15,10 @@
 +(NSString*) getLoginToken;
 +(NSString*) getAccessToken;
 +(NSString*) getUserSig;
++(NSString*) getUserID;
 +(void) setLoginToken:(NSString*) loginToken;
 +(void) setAccessToken:(NSString*) accessToken;
 +(void) setUserSig:(NSString*) userSig;
++(void)setUserID:(NSString*) userID;
 
 @end

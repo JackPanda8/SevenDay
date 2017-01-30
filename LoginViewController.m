@@ -147,7 +147,7 @@
 - (NSMutableDictionary*)getTokensFromServerByIdentifier:(NSString*) phoneNumber withPassword:(NSString*) password{
 //    NSString* md5Password = [MD5 MD5String:password];
 //    NSString* domainString = [NSString stringWithFormat:@"https://login/username = %@&&password = %@", _standardPhoneNum, md5Password];
-//    NSMutableDictionary* tokens;//三个token
+//    NSMutableDictionary* tokens = [[NSMutableDictionary alloc] init];//三个token
 //    
 //    AFHTTPSessionManager* sessionManager = [AFHTTPSessionManager manager];
 //    sessionManager.requestSerializer = [AFHTTPRequestSerializer serializer];
@@ -158,8 +158,8 @@
 //        [tokens setValue:[responseObject valueForKey:@"AccessToken"] forKey:@"AccessToken"];
 //        [tokens setValue:[responseObject valueForKey:@"LoginToken"] forKey:@"LoginToken"];
 //        [tokens setValue:[responseObject valueForKey:@"UserSig"] forKey:@"UserSig"];
-//        
-//        //将LoginToken,AccessToken和UserSig存入沙盒的Library/Preference目录中
+//        [tokens setValue:_standardPhoneNum forKey:@"UserID"];
+//        //将UserID(用户手机号),LoginToken,AccessToken和UserSig存入沙盒的Library/Preference目录中
 //        [TokensUtil setTokens:tokens];
 //        
 //    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
@@ -171,6 +171,8 @@
 //        }];
 //    }];
     
+    
+
     NSMutableDictionary* tokens = [[NSMutableDictionary alloc] init];//三个token
     if([phoneNumber isEqualToString:@"fdb"]) {
         [tokens setValue:@"eJxNjd1OgzAARt*ltxgp7RqHyS4YYFTExc1hMCRNoS3pdMBKJW7Gd7chmO32nO-nB7w*ba5ZVbVfjaHm2AlwCyC4GrHiojFKKqEtlLycMOs6xSkzFGt*ke75Bx2VZd4MQugRCPEkxXentKBMmnHMI4QgG5nsIHSv2sYKZFsewhCepVF7MU7OLSMIof8-VVucxi-hQ*TAkA04y7PwMUN8fojLflc93830STeSYXNM0-X7bh9EXaCWsk2Mc58nvl*4-iZKP9fJW4LLg1npm2DF4u1QuEG93Oa1U7j1YgF*-wD3Llb9"

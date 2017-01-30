@@ -10,6 +10,14 @@
 
 @interface MyMessageCell : UITableViewCell
 
+
+@property (weak, nonatomic) IBOutlet UIImageView *image;
 @property (weak, nonatomic) IBOutlet UILabel *title;
+@property (weak, nonatomic) IBOutlet UILabel *content;
+@property (weak, nonatomic) IBOutlet UILabel *time;
+
+@property (weak, nonatomic) id<IMAConversationShowAble> _showItem;
+
+- (void)configCellOnNewMessage:(id<IMAConversationShowAble>)item;
 
 @end
